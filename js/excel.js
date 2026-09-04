@@ -26,7 +26,7 @@ export function buildWorkbook() {
 }
 
 export function fileName() {
-  return `so-san-luong-${state.date}.xlsx`;
+  return `treadscan-${state.date}.xlsx`;
 }
 
 export function exportFile() {

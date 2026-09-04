@@ -3,6 +3,9 @@
 import { setStatus } from "./dom.js";
 import { today } from "./util.js";
 
+// Giữ nguyên tên cũ dù ứng dụng đã đổi tên thành TreadScan: đây là khoá
+// localStorage, đổi nó thì mọi máy đang có dữ liệu chưa xuất sẽ mở ra thấy
+// trắng trơn.
 const STORE_KEY = "thu-san-luong-v1";
 
 // vehicleIndex mặc định nằm ngay sau fieldIndex: chuỗi QR mẫu

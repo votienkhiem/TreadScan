@@ -1,4 +1,4 @@
-# Sổ Sản Lượng (TreadScan)
+# TreadScan
 
 Ứng dụng web đếm sản lượng bằng cách quét mã QR trên điện thoại, rồi xuất ra
 Excel. Dữ liệu nằm hoàn toàn trong trình duyệt của máy, không gửi đi đâu.
