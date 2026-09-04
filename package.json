@@ -1,0 +1,29 @@
+{
+  "name": "qr_scan",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 0.0.0.0",
+    "build": "vite build",
+    "preview": "vite preview --host 0.0.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/votienkhiem/TreadScan.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/votienkhiem/TreadScan/issues"
+  },
+  "homepage": "https://votienkhiem.github.io/TreadScan/",
+  "dependencies": {
+    "barcode-detector": "^3.2.2",
+    "xlsx": "^0.18.5"
+  },
+  "devDependencies": {
+    "vite": "^8.2.2"
+  }
+}

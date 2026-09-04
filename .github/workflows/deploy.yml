@@ -1,0 +1,54 @@
+# Dựng trang bằng Vite rồi đưa lên GitHub Pages sau mỗi lần đẩy lên main.
+# Trang chạy ở https://votienkhiem.github.io/TreadScan/
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  # Cho phép bấm chạy tay trong tab Actions khi cần dựng lại.
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Đẩy liên tiếp thì để lần trước chạy xong hẳn, tránh hai bản cùng ghi đè.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - run: npm run build
+
+      # enablement: bật sẵn GitHub Pages cho repo nếu chưa bật, khỏi phải vào
+      # Settings bấm tay. Đã bật rồi thì bước này không đổi gì.
+      - uses: actions/configure-pages@v5
+        with:
+          enablement: true
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

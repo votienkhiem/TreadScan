@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover" />
+<meta name="theme-color" content="#1b2733" />
+<title>Sổ Sản Lượng</title>
+
+<link rel="stylesheet" href="./css/styles.css" />
+</head>
+<body>
+
+<header>
+  <span class="day" id="dayLabel">—</span>
+  <span class="tally"><b id="countLabel">0</b> mã · <b id="sumLabel">0</b> cái</span>
+</header>
+
+<main>
+
+  <div class="banner" id="oldBanner" hidden>
+    <span id="oldBannerText"></span>
+    <button class="small" id="newDayBtn">Ngày mới</button>
+  </div>
+
+  <div id="reader">
+    <video id="preview" playsinline muted hidden></video>
+    <span id="readerHint">Camera đang tắt</span>
+  </div>
+
+  <div class="btn-row" id="camControls">
+    <button class="primary" id="startBtn">Bật camera</button>
+    <button id="stopBtn" disabled>Tắt</button>
+    <button id="manualBtn">Nhập tay</button>
+  </div>
+
+  <p class="status" id="status">Bấm bật camera để bắt đầu.</p>
+  <div class="mobile-guide" id="mobileGuide" hidden>
+    Đặt mã QR vào giữa khung, giữ khoảng cách 15–25 cm, và đều tay để máy dễ đọc hơn trên điện thoại.
+  </div>
+
+  <!-- Ô nhập số lượng, chỉ hiện sau khi quét được -->
+  <section class="card" id="entry" hidden>
+    <h2 id="entryTitle">Mã vừa quét</h2>
+    <input type="text" id="manualCode" placeholder="Nhập mã sản phẩm" hidden
+           autocomplete="off" autocapitalize="characters" spellcheck="false" />
+    <p class="code" id="entryCode"></p>
+    <div class="field tight">
+      <label for="xeInput">Số xe</label>
+      <input type="text" id="xeInput" autocomplete="off"
+             autocapitalize="characters" spellcheck="false" placeholder="Vd: B2301" />
+    </div>
+    <p class="dupe" id="entryDupe" hidden></p>
+    <input type="tel" id="qtyInput" inputmode="numeric" pattern="[0-9]*"
+           placeholder="Số lượng" autocomplete="off" />
+    <div class="btn-row">
+      <button class="primary" id="saveBtn">Lưu</button>
+      <button id="addBtn" hidden>Cộng dồn</button>
+      <button id="cancelBtn">Bỏ qua</button>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>Đã thu</h2>
+    <p id="empty">Chưa có mã nào.</p>
+    <ul id="list"></ul>
+  </section>
+
+  <div class="btn-row" style="margin-bottom:12px">
+    <button class="primary" id="exportBtn" disabled>Xuất Excel</button>
+    <button id="shareBtn" disabled hidden>Gửi đi</button>
+  </div>
+  <button class="wide quiet danger small" id="clearBtn">Xoá toàn bộ dữ liệu</button>
+
+  <details class="card" style="margin-top:12px">
+    <summary>Cài đặt tách mã</summary>
+    <div class="field">
+      <label for="delimInput">Dấu phân cách (để trống nếu lấy cả chuỗi)</label>
+      <input type="text" id="delimInput" autocomplete="off" spellcheck="false" />
+    </div>
+    <div class="field">
+      <label for="fieldInput">Đoạn của mã sản phẩm</label>
+      <input type="tel" id="fieldInput" inputmode="numeric" pattern="[0-9]*" autocomplete="off" />
+    </div>
+    <div class="field">
+      <label for="xeFieldInput">Đoạn của số xe (để trống nếu không có)</label>
+      <input type="tel" id="xeFieldInput" inputmode="numeric" pattern="[0-9]*" autocomplete="off" />
+    </div>
+    <div class="field">
+      <label for="testInput">Dán thử một chuỗi QR để kiểm tra</label>
+      <input type="text" id="testInput" autocomplete="off" spellcheck="false"
+             placeholder="2205000325394,TR710029B-01,B2301,2026-09-03 07:26:12" />
+    </div>
+    <p class="preview" id="preview">Kết quả tách sẽ hiện ở đây.</p>
+  </details>
+
+  <p class="hint">
+    Dữ liệu chỉ nằm trong trình duyệt của máy này. Nhớ xuất Excel trước khi kết thúc ngày.
+  </p>
+
+  <footer>
+    <p class="brand">Sổ Sản Lượng</p>
+    <p class="copy">© 2026 Khiem Vo</p>
+  </footer>
+
+</main>
+
+<div class="modal-backdrop" id="confirmBackdrop" hidden>
+  <div class="modal" id="confirmBox" role="alertdialog" aria-modal="true"
+       aria-labelledby="confirmTitle" aria-describedby="confirmText">
+    <h2 id="confirmTitle">Xác nhận</h2>
+    <p id="confirmText"></p>
+    <div class="btn-row">
+      <button id="confirmCancel">Không</button>
+      <button class="danger-solid" id="confirmOk">Xoá</button>
+    </div>
+  </div>
+</div>
+
+<script type="module" src="./js/main.js"></script>
+</body>
+</html>
