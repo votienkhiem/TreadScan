@@ -44,14 +44,29 @@
     <input type="text" id="manualCode" placeholder="Nhập mã sản phẩm" hidden
            autocomplete="off" autocapitalize="characters" spellcheck="false" />
     <p class="code" id="entryCode"></p>
+    <p class="dupe" id="entryDupe" hidden></p>
+    <div class="field tight">
+    <label for="xeInput">Số lượng</label>
+    <input type="tel" id="qtyInput" inputmode="numeric" pattern="[0-9]*"
+           placeholder="Số lượng" autocomplete="off" />
+    </div>
+    <!-- code cũ, hoạt động bình thường -->
+    <!-- <div class="field tight">
+      <label for="xeInput">Số xe</label>
+      <input type="text" id="xeInput" autocomplete="off"
+             autocapitalize="characters" spellcheck="false" placeholder="Vd: DT121" />
+    </div> -->
+    <!--end-->
     <div class="field tight">
       <label for="xeInput">Số xe</label>
       <input type="text" id="xeInput" autocomplete="off"
-             autocapitalize="characters" spellcheck="false" placeholder="Vd: B2301" />
+             inputmode="numeric" pattern="[0-9]*" placeholder="Vd: DT121" />
     </div>
-    <p class="dupe" id="entryDupe" hidden></p>
-    <input type="tel" id="qtyInput" inputmode="numeric" pattern="[0-9]*"
-           placeholder="Số lượng" autocomplete="off" />
+     <div class="field tight">
+      <label for="xeInput">Ghi chú</label>
+      <input type="text" id="noteInput" autocomplete="off"
+             autocapitalize="characters" spellcheck="false" placeholder="Vd: MR" />
+    </div>
     <div class="btn-row">
       <button class="primary" id="saveBtn">Lưu</button>
       <button id="addBtn" hidden>Cộng dồn</button>

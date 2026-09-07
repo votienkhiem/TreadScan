@@ -69,9 +69,10 @@ export function groupItems() {
   const map = new Map();
   state.items.forEach((it, index) => {
     const g = map.get(it.code) ||
-      { code: it.code, qty: 0, at: 0, raw: it.raw || "", vehicles: [] };
+      { code: it.code, qty: 0, at: 0, raw: it.raw || "", noteMR: it.noteMR || "", vehicles: [] };
     g.qty += it.qty;
     g.at = Math.max(g.at, it.at);
+    g.noteMR = it.noteMR || g.noteMR;
     g.vehicles.push({ xe: it.xe || "", qty: it.qty, at: it.at, index });
     map.set(it.code, g);
   });

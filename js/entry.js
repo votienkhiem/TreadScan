@@ -70,6 +70,7 @@ function fillEntry({ title, code, xe, raw, index, existing }) {
   $("entryTitle").textContent = title;
   $("entryCode").dataset.raw = raw || "";
   $("xeInput").value = xe || "";
+  $("noteInput").value = "";
 
   if (existing) {
     $("entryDupe").hidden = false;
@@ -77,6 +78,7 @@ function fillEntry({ title, code, xe, raw, index, existing }) {
       ? `Mã này với xe ${existing.xe} đã nhập ${existing.qty} lúc ${clock(existing.at)}.`
       : `Mã này đã nhập ${existing.qty} lúc ${clock(existing.at)}.`;
     $("qtyInput").value = existing.qty;
+    $("noteInput").value = existing.noteMR;
     $("addBtn").hidden = index >= 0;   // sửa thì không cần cộng dồn
   } else {
     $("entryDupe").hidden = true;
@@ -95,7 +97,10 @@ export function openScanned(code, xe, raw) {
   $("manualCode").hidden = true;
   $("entryCode").hidden = false;
   $("entryCode").textContent = code;
-  const vehicle = xe || lastVehicle;
+  // lấy mã máy TD1 TD2 từ QR gán lên textbox
+  // const vehicle = xe || lastVehicle; 
+  // để số xe rỗng và nhập số xe
+  const vehicle = ""; 
   fillEntry({
     title: "Mã vừa quét", code, xe: vehicle, raw, index: -1,
     existing: findItem(code, vehicle)
@@ -129,6 +134,7 @@ export function openManual() {
   $("manualCode").value = "";
   $("xeInput").value = lastVehicle;
   $("qtyInput").value = "";
+  $("noteInput").value = "";
   $("entry").hidden = false;
   setViewfinderCompact(true);
   bringIntoView($("entry"));
@@ -161,6 +167,7 @@ export function closeEntry() {
 // Trả về true khi đã ghi xong, để nơi gọi biết có nên đi tiếp hay không.
 export function commit(mode) {
   const qty = parseInt($("qtyInput").value, 10);
+  const noteMR = $("noteInput").value.trim() ; 
   if (!Number.isFinite(qty) || qty < 0) {
     setStatus("Số lượng chưa hợp lệ.", "error");
     focusQty();
@@ -185,6 +192,7 @@ export function commit(mode) {
     it.code = code;
     it.xe = xe;
     it.qty = qty;
+    it.noteMR = noteMR;
     it.at = Date.now();
   } else {
     // Trùng mã nhưng khác xe là một dòng mới; chỉ cộng dồn khi trùng cả cặp.
@@ -192,12 +200,14 @@ export function commit(mode) {
     if (existing) {
       existing.qty = mode === "add" ? existing.qty + qty : qty;
       existing.at = Date.now();
+      existing.noteMR = noteMR;
       if ($("entryCode").dataset.raw) existing.raw = $("entryCode").dataset.raw;
     } else {
       state.items.push({
         code,
         xe,
         qty,
+        noteMR,
         at: Date.now(),
         raw: $("entryCode").dataset.raw || ""
       });

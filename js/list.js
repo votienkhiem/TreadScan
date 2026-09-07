@@ -68,10 +68,14 @@ function groupRow(g) {
   qty.className = "qty";
   qty.textContent = g.qty;
 
+  const noteMR = document.createElement("span");
+  noteMR.className = "noteMR";
+  noteMR.textContent = g.noteMR;
+
   const time = document.createElement("time");
   time.textContent = clock(g.at);
 
-  row.append(code, qty, time);
+  row.append(code, qty, noteMR, time);
   // Một xe thì sửa/xoá ngay trên dòng; nhiều xe thì mỗi xe có nút riêng,
   // nếu không sẽ không rõ đang sửa xe nào.
   if (single) row.append(actionButtons(g.vehicles[0].index, g.code));
@@ -98,6 +102,10 @@ function groupRow(g) {
       const vq = document.createElement("span");
       vq.className = "qty";
       vq.textContent = v.qty;
+
+      const vNote = document.createElement("span");
+      vNote.className = "noteMR";
+      vNote.textContent = v.noteMR;
 
       const vt = document.createElement("time");
       vt.textContent = clock(v.at);
