@@ -78,7 +78,7 @@ function fillEntry({ title, code, xe, raw, index, existing }) {
       ? `Mã này với xe ${existing.xe} đã nhập ${existing.qty} lúc ${clock(existing.at)}.`
       : `Mã này đã nhập ${existing.qty} lúc ${clock(existing.at)}.`;
     $("qtyInput").value = existing.qty;
-    $("noteInput").value = existing.noteMR;
+    $("noteInput").value = existing.noteMR || "";
     $("addBtn").hidden = index >= 0;   // sửa thì không cần cộng dồn
   } else {
     $("entryDupe").hidden = true;
