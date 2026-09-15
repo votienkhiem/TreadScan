@@ -7,18 +7,42 @@ import { viDate, clock } from "./util.js";
 
 export function buildWorkbook() {
   // Mỗi mã sản phẩm một dòng; số xe gộp vào cột ghi chú.
-  const rows = groupItems()
-    .sort((a, b) => a.code.localeCompare(b.code, "en"))
-    .map(g => ({
-      "Mã sản phẩm": g.code,
-      "Số lượng": g.qty,
-      "Số xe": vehicleNote(g),
-      "Giờ quét": clock(g.at)
-    }));
+  // chỉ hiện thị 1 ghi chú
+  // const rows = groupItems()
+  //   .sort((a, b) => a.code.localeCompare(b.code, "en"))
+  //   .map(g => ({
+  //     "Mã bán thành phẩm": g.code,
+  //     "Số lượng": g.qty,
+  //     "Số xe": vehicleNote(g),
+  //     "Ghi chú": g.noteMR || "" ,
+  //     "Giờ quét": clock(g.at)
+  //   }));
 
-  const header = ["Mã sản phẩm", "Số lượng", "Số xe", "Giờ quét"];
+  // Mỗi mã sản phẩm 1 dòng, 1 ghi chú riêng
+  const rows = state.items
+  .sort((a, b) => a.code.localeCompare(b.code, "en"))
+  .map(it => ({
+    "Mã bán thành phẩm": it.code,
+    "Số lượng": it.qty,
+    "Số xe": it.xe || "",
+    "Ghi chú": it.noteMR || "",
+    "Giờ quét": clock(it.at)
+  }));
+
+  // const header = ["Mã sản phẩm", "Số lượng", "Số xe", "Giờ quét"];
+  const header = ["Mã bán thành phẩm", "Số lượng", "Số xe", "Ghi chú", "Giờ quét"];
   const ws = XLSX.utils.json_to_sheet(rows, { header });
-  ws["!cols"] = [{ wch: 20 }, { wch: 10 }, { wch: 34 }, { wch: 10 }];
+  // độ rộng mỗi côt
+  ws["!cols"] = [{ wch: 20 }, { wch: 8 }, {wch: 8}, { wch: 40 }, { wch: 10 }];
+  // in đậm tiêu header
+  header.forEach((_, colIndex) => {
+  const cellAddress = XLSX.utils.encode_cell({ r: 0, c: colIndex });
+  if (!ws[cellAddress]) return;
+
+  ws[cellAddress].s = {
+    font: { bold: true }
+  };
+});
 
   const wb = XLSX.utils.book_new();
   XLSX.utils.book_append_sheet(wb, ws, viDate(state.date).replace(/\//g, "-"));

@@ -71,6 +71,7 @@ function groupRow(g) {
   const noteMR = document.createElement("span");
   noteMR.className = "noteMR";
   noteMR.textContent = g.noteMR;
+  noteMR.title = g.noteMR;
 
   const time = document.createElement("time");
   time.textContent = clock(g.at);

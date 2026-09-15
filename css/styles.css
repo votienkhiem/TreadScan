@@ -335,6 +335,14 @@
     padding-bottom: calc(20px + env(safe-area-inset-bottom));
     animation: modal-fade 0.12s ease-out;
   }
+  /* Note MR... */
+  .noteMR {
+    display: inline-block;
+    max-width: 180px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
   .modal {
     background: var(--surface);
     border-radius: 14px;

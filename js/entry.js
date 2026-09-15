@@ -132,7 +132,7 @@ export function openManual() {
   $("addBtn").hidden = true;
   $("manualCode").hidden = false;
   $("manualCode").value = "";
-  $("xeInput").value = lastVehicle;
+  $("xeInput").value = "";
   $("qtyInput").value = "";
   $("noteInput").value = "";
   $("entry").hidden = false;
