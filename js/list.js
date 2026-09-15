@@ -82,6 +82,11 @@ function groupRow(g) {
   if (single) row.append(actionButtons(g.vehicles[0].index, g.code));
   li.append(row);
 
+  // note xuống 1 dòng
+  if (g.noteMR) {
+    li.append(noteMR);
+  }
+
   const note = vehicleNote(g);
   if (note) {
     const p = document.createElement("p");
