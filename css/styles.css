@@ -21,6 +21,9 @@
     --warn-ink: #6b4e07;
     --danger: #a5301c;
     --danger-dark: #7d2415;
+    --matcha: #74A12E;
+    --matcha-dark: #517120;
+
   }
 
   * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
@@ -90,8 +93,8 @@
     color: var(--ink);
     cursor: pointer;
   }
-  button.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
-  button.primary:active { background: var(--accent-dark); }
+  button.primary { background: var(--matcha); border-color: var(--matcha); color: #fff; }
+  button.primary:active { background: var(--matcha-dark); }
   button.wide { width: 100%; }
   button.small { font-size: var(--fs-note); padding: 8px 12px; min-height: 38px; }
   button.quiet { background: transparent; border-color: transparent; color: var(--muted); }
