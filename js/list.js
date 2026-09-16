@@ -24,9 +24,14 @@ export function render() {
   const list = $("list");
   list.innerHTML = "";
   // Gộp theo mã sản phẩm, mới nhất lên trên.
-  groupItems()
-    .sort((a, b) => b.at - a.at)
-    .forEach(g => list.appendChild(groupRow(g)));
+  // groupItems()
+  //   .sort((a, b) => b.at - a.at)
+  //   .forEach(g => list.appendChild(groupRow(g)));
+
+  state.items
+  .slice()
+  .sort((a, b) => b.at - a.at)
+  .forEach((it, index) => list.appendChild(itemRow(it, index)));
 
   $("empty").hidden = state.items.length > 0;
   $("exportBtn").disabled = state.items.length === 0;
@@ -121,6 +126,41 @@ function groupRow(g) {
     });
     li.append(sub);
   }
+
+  return li;
+}
+
+function itemRow(it, index) {
+  const li = document.createElement("li");
+
+  const row = document.createElement("div");
+  row.className = "row";
+
+  const code = document.createElement("span");
+  code.className = "code";
+  code.textContent = it.code;
+
+  const qty = document.createElement("span");
+  qty.className = "qty";
+  qty.textContent = it.qty;
+
+  const xe = document.createElement("span");
+  xe.className = "xe";
+  xe.textContent = it.xe || "";
+
+  row.append(code, qty, xe);
+  li.append(row);
+
+  // ghi chú
+  if (it.noteMR) {
+    const note = document.createElement("div");
+    note.className = "noteMR";
+    note.textContent = it.noteMR;
+    li.append(note);
+  }
+
+  // nút sửa / xoá
+  li.append(actionButtons(index, it.code));
 
   return li;
 }

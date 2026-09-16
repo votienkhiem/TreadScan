@@ -346,6 +346,11 @@
     flex-shrink: 0;
   }
 
+  /* ẩn thời gian quét */
+  time {
+    display: none;
+  }
+
   .modal {
     background: var(--surface);
     border-radius: 14px;
