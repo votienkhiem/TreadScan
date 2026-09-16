@@ -29,9 +29,9 @@ export function render() {
   //   .forEach(g => list.appendChild(groupRow(g)));
 
   state.items
-  .slice()
-  .sort((a, b) => b.at - a.at)
-  .forEach((it, index) => list.appendChild(itemRow(it, index)));
+    .map((it, index) => ({ ...it, _index: index })) // giữ index gốc
+    .sort((a, b) => b.at - a.at)
+    .forEach(it => list.appendChild(itemRow(it)));
 
   $("empty").hidden = state.items.length > 0;
   $("exportBtn").disabled = state.items.length === 0;
@@ -148,7 +148,10 @@ function itemRow(it, index) {
   xe.className = "xe";
   xe.textContent = it.xe || "";
 
-  row.append(code, qty, xe);
+  // nút sửa / xoá
+  const actions = actionButtons(it._index, it.code);
+
+  row.append(code, qty, xe, actions);
   li.append(row);
 
   // ghi chú
@@ -158,9 +161,6 @@ function itemRow(it, index) {
     note.textContent = it.noteMR;
     li.append(note);
   }
-
-  // nút sửa / xoá
-  li.append(actionButtons(index, it.code));
 
   return li;
 }
